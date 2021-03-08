@@ -1,0 +1,5 @@
+C:\Users\jonre\OneDrive\Documents\Unreal Projects\Building_Escape\Intermediate\Build\Win64\UE4Editor\Development\Building_Escape\Definitions.Building_Escape.h
+C:\Users\jonre\OneDrive\Documents\Unreal Projects\Building_Escape\Source\Building_Escape\DoorComponent.h
+C:\Program Files\Epic Games\UE_4.26\Engine\Source\Runtime\Engine\Classes\Engine/TriggerVolume.h
+C:\Program Files\Epic Games\UE_4.26\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\TriggerVolume.generated.h
+C:\Users\jonre\OneDrive\Documents\Unreal Projects\Building_Escape\Intermediate\Build\Win64\UE4Editor\Inc\Building_Escape\DoorComponent.generated.h
