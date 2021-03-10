@@ -25,7 +25,7 @@ void UDoorComponent::BeginPlay()
 	
 
 	InitialYaw = GetOwner()->GetActorRotation().Yaw;
-	TargetYaw = InitialYaw + TargetYaw;
+	OpenAngle = InitialYaw + OpenAngle;
 	CurrentYaw = InitialYaw;
 
 	if (!TriggerVolume)
@@ -33,8 +33,10 @@ void UDoorComponent::BeginPlay()
 		UE_LOG(LogTemp, Error, TEXT("%s actor has open door component with no trigger volume set"), *GetOwner()->GetName());
 	}
 	
-	ActorToTrigger=GetWorld()->GetFirstPlayerController()->GetPawn();
-	
+	if (!ActorToTrigger)
+	{
+		ActorToTrigger = GetWorld()->GetFirstPlayerController()->GetPawn();
+	}
 }
 
 
@@ -43,27 +45,32 @@ void UDoorComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
+	if (!ActorToTrigger)
+	{
+		ActorToTrigger = GetWorld()->GetFirstPlayerController()->GetPawn();
+	}
+
 	//UE_LOG(LogTemp, Warning, TEXT("Float: %f"), GetOwner()->GetActorRotation().Yaw);
 	if (TriggerVolume && TriggerVolume->IsOverlappingActor(ActorToTrigger))
 	{
 		OpenDoor(DeltaTime);
 		GameTime=GetWorld()->GetTimeSeconds();
 	}
-	else if (TriggerVolume && GameTime+Delay<GetWorld()->GetTimeSeconds())
+	else if (TriggerVolume && GameTime+DoorCloseDelay<GetWorld()->GetTimeSeconds())
 	{
 		CloseDoor(DeltaTime);
-		UE_LOG(LogTemp, Warning, TEXT("closing door, CurrentYaw: %f"), CurrentYaw);
+		//UE_LOG(LogTemp, Warning, TEXT("closing door, CurrentYaw: %f"), CurrentYaw);
 	}
 	
 	
 }
 void UDoorComponent::OpenDoor(float DeltaTime)
 {
-	CurrentYaw = FMath::FInterpTo(CurrentYaw, TargetYaw, DeltaTime, 2);
+	CurrentYaw = FMath::FInterpTo(CurrentYaw, OpenAngle, DeltaTime, DoorOpenSpeed);
 	GetOwner()->SetActorRotation(FRotator(0, CurrentYaw, 0));
 }
 void UDoorComponent::CloseDoor(float DeltaTime)
 {
-	CurrentYaw = FMath::FInterpTo(CurrentYaw, InitialYaw, DeltaTime, 5);
+	CurrentYaw = FMath::FInterpTo(CurrentYaw, InitialYaw, DeltaTime, DoorCloseSpeed);
 	GetOwner()->SetActorRotation(FRotator(0, CurrentYaw, 0));
 }

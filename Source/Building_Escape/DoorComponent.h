@@ -29,17 +29,27 @@ public:
 	void CloseDoor(float DeltaTime);
 
 private:
-	UPROPERTY(EditAnywhere)
-	float TargetYaw = 90.f;
+	
 	float CurrentYaw = 0.f;
 	float InitialYaw = 0.f;
 
-	float Delay = 0.5f;
 	float GameTime = 0.f;
+
+	UPROPERTY(EditAnywhere)
+	float OpenAngle = 90.f;
+	UPROPERTY(EditAnywhere)
+	float DoorCloseDelay = 0.5f;
+	UPROPERTY(EditAnywhere)
+	float DoorOpenSpeed = 2.0f;
+	UPROPERTY(EditAnywhere)
+	float DoorCloseSpeed = 5.0f;
+
+	
 
 	UPROPERTY(EditAnywhere)
 	ATriggerVolume* TriggerVolume;
 
+	//The actor to trigger, if none is set defaults to player controlled pawn
 	UPROPERTY(EditAnywhere)
 	AActor* ActorToTrigger;
 		
