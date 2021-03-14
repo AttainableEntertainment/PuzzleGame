@@ -36,6 +36,7 @@ void UDoorComponent::BeginPlay()
 	if (!ActorToTrigger)
 	{
 		ActorToTrigger = GetWorld()->GetFirstPlayerController()->GetPawn();
+		
 	}
 }
 
