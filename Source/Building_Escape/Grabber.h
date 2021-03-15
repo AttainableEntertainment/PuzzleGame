@@ -34,5 +34,8 @@ private:
 	void Release();
 	void FindPhysicsHandler();
 	void SetInputComponent();
-	FHitResult LineTrace();
+	FHitResult LineTrace() const;
+	FVector GetActorLocation() const;
+	FRotator GetActorRotation() const;
+	FVector GetActorReachLocation() const;
 };
